@@ -317,6 +317,9 @@ static void* SignalHandlerLoop(void* arg)
 #if defined(__linux__) || defined(__FreeBSD__)
     pthread_setname_np(pthread_self(), threadName);
 #endif
+#if defined(__linux__)
+    pthread_set_name_np(pthread_self(), threadName);
+#endif
 #if defined(__APPLE__)
     pthread_setname_np(threadName);
 #endif
