@@ -404,7 +404,7 @@ int32_t SystemNative_GetActiveTcpConnectionInfos(NativeTcpConnectionInformation*
         NativeTcpConnectionInformation* ntci = &infos[connectionIndex];
         struct xtcpcb* head_xtcpb = (struct xtcpcb*)xHeadPtr;
 
-#ifdef __FreeBSD__
+#if 0
         struct xinpcb* in_pcb =  &head_xtcpb->xt_inp;
         if ((in_pcb->inp_vflag & INP_IPV6) == INP_IPV6)
         {
