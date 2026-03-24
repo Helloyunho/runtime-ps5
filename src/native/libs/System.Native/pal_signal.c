@@ -10,6 +10,9 @@
 #include <assert.h>
 #include <errno.h>
 #include <pthread.h>
+#if HAVE_PTHREAD_NP_H
+#include <pthread_np.h>
+#endif
 #include <signal.h>
 #include <stdlib.h>
 #include <sys/types.h>
