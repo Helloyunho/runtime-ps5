@@ -8,7 +8,7 @@ usage()
     echo "BuildArch can be: arm(default), arm64, armel, armv6, ppc64le, riscv64, s390x, x64, x86"
     echo "CodeName - optional, Code name for Linux, can be: xenial(default), zesty, bionic, alpine"
     echo "                               for alpine can be specified with version: alpineX.YY or alpineedge"
-    echo "                               for FreeBSD can be: freebsd12, freebsd13"
+    echo "                               for FreeBSD can be: freebsd11, freebsd12, freebsd13"
     echo "                               for illumos can be: illumos"
     echo "                               for Haiku can be: haiku."
     echo "lldbx.y - optional, LLDB version, can be: lldb3.9(default), lldb4.0, lldb5.0, lldb6.0 no-lldb. Ignored for alpine and FreeBSD"
@@ -71,9 +71,9 @@ __AlpinePackages+=" krb5-dev"
 __AlpinePackages+=" openssl-dev"
 __AlpinePackages+=" zlib-dev"
 
-__FreeBSDBase="12.4-RELEASE"
+__FreeBSDBase="11.4-RELEASE"
 __FreeBSDPkg="1.17.0"
-__FreeBSDABI="12"
+__FreeBSDABI="11"
 __FreeBSDPackages="libunwind"
 __FreeBSDPackages+=" icu"
 __FreeBSDPackages+=" libinotify"
@@ -334,8 +334,14 @@ while :; do
                 __AlpineVersion="$__AlpineMajorVersion.$__AlpineMinoVersion"
             fi
             ;;
+        freebsd11)
+            __CodeName=freebsd
+            __SkipUnmount=1
+            ;;
         freebsd12)
             __CodeName=freebsd
+            __FreeBSDBase="12.4-RELEASE"
+            __FreeBSDABI="12"
             __SkipUnmount=1
             ;;
         freebsd13)
@@ -501,9 +507,9 @@ if [[ "$__CodeName" == "alpine" ]]; then
 elif [[ "$__CodeName" == "freebsd" ]]; then
     mkdir -p "$__RootfsDir"/usr/local/etc
     JOBS=${MAXJOBS:="$(getconf _NPROCESSORS_ONLN)"}
-    wget -O - "https://download.freebsd.org/ftp/releases/${__FreeBSDArch}/${__FreeBSDMachineArch}/${__FreeBSDBase}/base.txz" | tar -C "$__RootfsDir" -Jxf - ./lib ./usr/lib ./usr/libdata ./usr/include ./usr/share/keys ./etc ./bin/freebsd-version
+    wget -O - "https://archive.freebsd.org/old-releases/${__FreeBSDArch}/${__FreeBSDMachineArch}/${__FreeBSDBase}/base.txz" | tar -C "$__RootfsDir" -Jxf - ./lib ./usr/lib ./usr/libdata ./usr/include ./usr/share/keys ./etc ./bin/freebsd-version
     echo "ABI = \"FreeBSD:${__FreeBSDABI}:${__FreeBSDMachineArch}\"; FINGERPRINTS = \"${__RootfsDir}/usr/share/keys\"; REPOS_DIR = [\"${__RootfsDir}/etc/pkg\"]; REPO_AUTOUPDATE = NO; RUN_SCRIPTS = NO;" > "${__RootfsDir}"/usr/local/etc/pkg.conf
-    echo "FreeBSD: { url: \"pkg+http://pkg.FreeBSD.org/\${ABI}/quarterly\", mirror_type: \"srv\", signature_type: \"fingerprints\", fingerprints: \"${__RootfsDir}/usr/share/keys/pkg\", enabled: yes }" > "${__RootfsDir}"/etc/pkg/FreeBSD.conf
+    echo "FreeBSD: { url: \"pkg+https://mirror.sg.gs/freebsd-pkg/\${ABI}/quarterly\", mirror_type: \"srv\", signature_type: \"none\", enabled: yes }" > "${__RootfsDir}"/etc/pkg/FreeBSD.conf
     mkdir -p "$__RootfsDir"/tmp
     # get and build package manager
     wget -O - "https://github.com/freebsd/pkg/archive/${__FreeBSDPkg}.tar.gz" | tar -C "$__RootfsDir"/tmp -zxf -

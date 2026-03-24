@@ -95,6 +95,7 @@ using namespace CorUnix;
 #define MAX_THREAD_NAME_SIZE 63
 #elif defined(__FreeBSD__)
 #define MAX_THREAD_NAME_SIZE MAXCOMLEN
+#define pthread_setname_np pthread_set_name_np
 #else
 #define MAX_THREAD_NAME_SIZE 15
 #endif

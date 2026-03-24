@@ -520,7 +520,7 @@ int32_t SystemNative_GetActiveUdpListeners(IPEndPointInfo* infos, int32_t* infoC
         // We also exclude sockets where remote info exist e.g. connect() was called to get
         // behavior similar to TCP.
 
-#if defined(__FreeBSD__)
+#if 0
         if (head_xinpcb->inp_inc.inc_ie.ie_lport == 0 || head_xinpcb->inp_inc.inc_ie.ie_fport != 0)
         {
             continue;
