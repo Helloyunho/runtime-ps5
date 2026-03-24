@@ -314,10 +314,10 @@ static void* SignalHandlerLoop(void* arg)
     assert(pipeFd >= 0);
 
     char* threadName = ".NET SigHandler";
-#if defined(__linux__) || defined(__FreeBSD__)
+#if defined(__linux__)
     pthread_setname_np(pthread_self(), threadName);
 #endif
-#if defined(__linux__)
+#if defined(__FreeBSD__)
     pthread_set_name_np(pthread_self(), threadName);
 #endif
 #if defined(__APPLE__)
