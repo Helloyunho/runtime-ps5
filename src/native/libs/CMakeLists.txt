@@ -160,7 +160,7 @@ if (CLR_CMAKE_TARGET_UNIX OR CLR_CMAKE_TARGET_BROWSER OR CLR_CMAKE_TARGET_WASI)
         # it is only used for interacting with OpenSSL which isn't useful there
     elseif (CLR_CMAKE_TARGET_ANDROID AND NOT FORCE_ANDROID_OPENSSL)
         add_subdirectory(System.Security.Cryptography.Native.Android)
-    elseif (FORCE_ANDROID_OPENSSL)
+    elseif (FORCE_ANDROID_OPENSSL OR CLR_CMAKE_TARGET_ORBIS)
         add_subdirectory(System.Security.Cryptography.Native)
     else ()
         add_subdirectory(System.Net.Security.Native)
