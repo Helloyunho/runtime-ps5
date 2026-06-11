@@ -1150,7 +1150,7 @@ check_symbol_exists(
     sys/sysmacros.h
     HAVE_MAKEDEV_SYSMACROSH)
 
-if (NOT HAVE_MAKEDEV_FILEH AND NOT HAVE_MAKEDEV_SYSMACROSH AND NOT CLR_CMAKE_TARGET_WASI)
+if (NOT HAVE_MAKEDEV_FILEH AND NOT HAVE_MAKEDEV_SYSMACROSH AND NOT CLR_CMAKE_TARGET_WASI AND NOT CLR_CMAKE_TARGET_ORBIS) # Orbis has makedev but it's in sys/types.h
   message(FATAL_ERROR "Cannot find the makedev function on this platform.")
 endif()
 
