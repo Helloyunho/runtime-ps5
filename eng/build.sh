@@ -30,7 +30,7 @@ usage()
   echo "                                  [Default: Debug]"
   echo "  --librariesConfiguration (-lc)  Libraries build configuration: Debug or Release."
   echo "                                  [Default: Debug]"
-  echo "  --os                            Target operating system: windows, linux, freebsd, osx, maccatalyst, tvos,"
+  echo "  --os                            Target operating system: windows, linux, freebsd, osx, maccatalyst, tvos, orbis"
   echo "                                  tvossimulator, ios, iossimulator, android, browser, wasi, netbsd, illumos, solaris"
   echo "                                  linux-musl, linux-bionic, tizen, or haiku."
   echo "                                  [Default: Your machine's OS.]"
@@ -267,6 +267,8 @@ while [[ $# > 0 ]]; do
           os="linux" ;;
         freebsd)
           os="freebsd" ;;
+        orbis)
+          os="orbis" ;;
         osx)
           os="osx" ;;
         maccatalyst)

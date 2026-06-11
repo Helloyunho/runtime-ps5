@@ -1683,6 +1683,12 @@
         "unix-x64"
       ]
     },
+    "orbis-x64": {
+      "#import": [
+        "freebsd",
+        "unix-x64"
+      ]
+    },
     "freebsd.12": {
       "#import": [
         "freebsd"
